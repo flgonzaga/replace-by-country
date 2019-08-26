@@ -118,10 +118,11 @@ add_action( 'admin_menu', 'rbc_plugin_menu' );
         }else{
             $ip = $remote;
         }
-        $ip_data = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=".$ip));    
-        if($ip_data && $ip_data->geoplugin_countryName != null){
-            $result['country'] = $ip_data->geoplugin_countryCode;
-            $result['city'] = $ip_data->geoplugin_city;
+        // $ip_data = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=".$ip));  
+        $ip_data = @json_decode(file_get_contents("http://ip-api.com/json/".$ip));  
+        if($ip_data && $ip_data->country != null){
+            $result['country'] = $ip_data->countryCode;
+            $result['city'] = $ip_data->city;
         }
         return $result;
     }
